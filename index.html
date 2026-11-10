@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEPP - Hautes Études des Pratiques Pédagogiques</title>
+    <!-- Importation de la police Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1B365D;
+            --secondary: #ffc107;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --accent: #28a745;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo-img {
+            height: 55px;
+            width: auto;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        /* Style des menus et sous-menus */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            z-index: 1;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: var(--primary);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .dropdown-content a:hover {
+            background-color: var(--light);
+            color: var(--secondary);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        nav > a, .dropbtn {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+        }
+        nav > a:hover, .dropbtn:hover {
+            color: var(--secondary);
+        }
+        .lang-btn {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .lang-btn:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        .hero {
+            background: linear-gradient(rgba(27, 54, 93, 0.9), rgba(27, 54, 93, 0.9)), url('banniere.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 130px 20px;
+        }
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 17px;
+            max-width: 750px;
+            margin: 0 auto 30px auto;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        .btn {
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 12px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            text-align: center;
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 40px;
+            position: relative;
+            font-weight: 600;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+        .grid {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 280px;
+            max-width: 500px;
+            border-top: 4px solid var(--primary);
+        }
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .card p {
+            line-height: 1.7;
+            color: #555;
+            font-size: 14px;
+        }
+        .testimonial-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 280px;
+            max-width: 320px;
+            border-left: 4px solid var(--secondary);
+            font-style: italic;
+            font-size: 14px;
+            color: #444;
+        }
+        .testimonial-author {
+            margin-top: 15px;
+            font-weight: 600;
+            font-style: normal;
+            color: var(--primary);
+            font-size: 13px;
+        }
+        .accreditation-box {
+            background: white;
+            padding: 35px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px dashed var(--primary);
+            margin-top: 40px;
+        }
+        .panel-section {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 40px;
+            border-top: 4px solid var(--primary);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .payment-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .payment-box h4 {
+            color: #856404;
+            margin-top: 0;
+            font-weight: 600;
+        }
+        
+        /* Protection Espace Étudiant */
+        .login-gate {
+            background: #e9ecef;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px dashed var(--primary);
+        }
+        .protected-content {
+            display: none; /* Caché par défaut jusqu'à authentification */
+        }
+
+        .module-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .module-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .module-item h4 {
+            color: var(--primary);
+            margin: 0 0 5px 0;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .module-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .btn-sm {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.2s;
+        }
+        .btn-sm:hover {
+            background-color: #11223f;
+        }
+        .creator-panel {
+            background: #11223f;
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 50px;
+            border: 2px solid var(--secondary);
+        }
+        .creator-panel h3 {
+            color: var(--secondary);
+            margin-top: 0;
+            font-weight: 600;
+        }
+        .chat-container {
+            height: 250px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 15px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #333;
+            font-size: 14px;
+        }
+        .chat-message {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+        .chat-message.me {
+            background: #d4edda;
+            align-self: flex-end;
+        }
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+            font-size: 13px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre de navigation -->
+    <header>
+        <div class="logo">
+            <img src="logo.jpeg" alt="HEPP Logo" class="logo-img">
+        </div>
+        <nav>
+            <a href="#">Accueil</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">Programmes ▾</button>
+                <div class="dropdown-content">
+                    <a href="#presentation-prog">Présentation générale</a>
+                    <a href="#inscription">Formulaire d'inscription</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Espace Étudiant ▾</button>
+                <div class="dropdown-content">
+                    <a href="#cours">Cours & Devoirs</a>
+                    <a href="#bibliotheque">Bibliothèque Numérique</a>
+                </div>
+            </div>
+
+            <a href="#communaute">Communauté</a>
+            <a href="#admin-createur">Espace Créateur</a>
+            <a href="#contact">Contact</a>
+
+            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+        </nav>
+    </header>
+
+    <!-- Page d'accueil Vitrine -->
+    <section class="hero">
+        <h1>Hautes Études des Pratiques Pédagogiques (HEPP)</h1>
+        <p>L'excellence académique ancrée en Haïti et ouverte sur le monde. Formez-vous aux métiers d'avenir avec notre double diplomation en Administration Scolaire & Gestion de Projet et notre Licence en Sciences de l'Éducation.</p>
+        <a href="#inscription" class="btn">Rejoignez HEPP dès aujourd'hui</a>
+    </section>
+
+    <div class="container">
+
+        <!-- Section Présentation & Publicité -->
+        <div id="presentation-prog" style="margin-bottom: 50px;">
+            <h2 class="section-title">Pourquoi Choisir HEPP ?</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Parcours Professionnel d'Excellence</h3>
+                    <p>Conçu pour former les futurs dirigeants d'établissements scolaires selon les normes nationales. Validez des certificats module par module (3 mois) pour décrocher une double diplomation reconnue sur le marché du travail.</p>
+                </div>
+                <div class="card">
+                    <h3>Flexibilité et Accessibilité</h3>
+                    <p>Suivez vos cours en présentiel ou à distance grâce à notre portail numérique moderne, interactif et trilingue (Français, Anglais, Espagnol), adapté aux réalités des professionnels.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Témoignages -->
+        <div style="margin-bottom: 50px;">
+            <h2 class="section-title">Ce que disent nos étudiants</h2>
+            <div class="grid">
+                <div class="testimonial-card">
+                    <p>"Grâce au cursus en Administration Scolaire de HEPP, j'ai pu structurer et diriger mon établissement avec une aisance professionnelle remarquable."</p>
+                    <div class="testimonial-author">— Magalie Saint-Fleur, Directrice d'école (Port-au-Prince)</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"La double diplomation en Gestion de Projet m'a permis de piloter des programmes éducatifs d'envergure. La plateforme en ligne est un atout majeur."</p>
+                    <div class="testimonial-author">— Jean-Rony Pierre, Consultant en éducation (Cap-Haïtien)</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Pouvoir étudier à mon rythme, déposer mes devoirs en ligne et échanger avec mes camarades haïtiens et d'ailleurs, c'est une opportunité en or."</p>
+                    <div class="testimonial-author">— Woodly Joseph, Étudiant en Licence (Delmas)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accréditations -->
+        <div class="accreditation-box">
+            <h3 style="color: var(--primary); margin-top: 0; font-weight: 600;">🏛️ Accréditations & Reconnaissance Institutionnelle</h3>
+            <p style="color: #555; max-width: 800px; margin: 0 auto; line-height: 1.7; font-size: 14px;">
+                Les programmes de <strong>HEPP</strong> sont élaborés en conformité stricte avec les prescrits du Ministère de l'Éducation Nationale et de la Formation Professionnelle (MENFP) en Haïti. Nos cursus et projets de fin d'études bénéficient également de validations académiques et institutionnelles reconnues auprès de la SAEP et de partenaires internationaux.
+            </p>
+        </div>
+
+        <!-- Inscription en Ligne -->
+        <div class="panel-section" id="inscription">
+            <h2 class="section-title">Formulaire d'Inscription en Ligne</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 14px;">
+                Remplissez les informations ci-dessous pour soumettre votre dossier d'inscription aux HEPP.
+            </p>
+
+            <div class="payment-box">
+                <h4>💳 Instructions de Paiement (Frais d'inscription)</h4>
+                <p>Effectuez le dépôt sur l'un de nos comptes officiels avant de soumettre ce formulaire :</p>
+                <ul>
+                    <li><strong>MONCASH :</strong> (+509) 4647-5772 — <em>Nom : Deborah FRANKLIN</em></li>
+                    <li><strong>NATCASH :</strong> (+509) 3338-1049 — <em>Nom : FRANÇOIS GAEZICO KEVIN</em></li>
+                </ul>
+            </div>
+
+            <form class="form-grid" onsubmit="event.preventDefault(); alert('Inscription envoyée avec succès ! Votre code d\'accès vous sera communiqué après validation.');">
+                <div class="form-group"><label>Nom et Prénom *</label><input type="text" required placeholder="Ex: Jean Pierre"></div>
+                <div class="form-group"><label>Adresse E-mail *</label><input type="email" required placeholder="votre.email@example.com"></div>
+                <div class="form-group"><label>Téléphone *</label><input type="text" required placeholder="+509 XXXX-XXXX"></div>
+                <div class="form-group"><label>Sexe *</label><select required><option value="">Sélectionner...</option><option value="M">Masculin</option><option value="F">Féminin</option></select></div>
+                <div class="form-group"><label>Date de Naissance *</label><input type="date" required></div>
+                <div class="form-group"><label>Année du Bac *</label><input type="text" required placeholder="Ex: 2023"></div>
+                <div class="form-group"><label>Filière Choisie *</label><select required><option value="">Sélectionner...</option><option value="asgp">Administration Scolaire & Gestion de Projet</option><option value="licence">Licence en Sciences de l'Éducation (3 ans)</option></select></div>
+                <div class="form-group"><label>NIF / CIN *</label><input type="text" required placeholder="Numéro fiscal ou CIN"></div>
+                <div class="form-group full"><label>Adresse Résidentielle *</label><input type="text" required placeholder="Ville, Quartier, Rue..."></div>
+                <div class="form-group full"><label>Preuve de Paiement (Code de transaction MonCash / NatCash) *</label><input type="text" required placeholder="Entrez la référence du paiement"></div>
+                <div class="form-group full" style="text-align: center; margin-top: 15px;">
+                    <button type="submit" class="btn" style="padding: 14px 30px;">Soumettre mon inscription</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ESPACE ÉTUDIANT PROTÉGÉ (COURS & DEVOIRS) -->
+        <div class="panel-section" id="cours">
+            <h2 class="section-title">Espace Étudiant : Cours & Remise des Devoirs</h2>
+            
+            <!-- Écran de connexion par code étudiant -->
+            <div class="login-gate" id="studentLoginGate">
+                <h3 style="color: var(--primary); margin-top: 0;">🔒 Accès Réservé aux Étudiants Admis</h3>
+                <p style="font-size: 14px; color: #555;">Veuillez entrer votre code d'accès étudiant officiel pour déverrouiller vos cours et l'espace de remise des devoirs.</p>
+                <div style="display: flex; gap: 10px; justify-content: center; max-width: 400px; margin: 20px auto 0 auto;">
+                    <input type="text" id="studentCodeInput" placeholder="Ex: HEPP-ASGP26-001" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family:'Poppins', sans-serif;">
+                    <button type="button" class="btn" onclick="verifyStudentCode()" style="padding: 10px 20px;">Entrer</button>
+                </div>
+                <p id="loginError" style="color: #dc3545; font-size: 13px; margin-top: 10px; display: none;">Code invalide. Veuillez vérifier votre code d'accès ou contacter le secrétariat.</p>
+            </div>
+
+            <!-- Contenu protégé (visible uniquement après validation du code) -->
+            <div class="protected-content" id="studentPortalContent">
+                <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; text-align: center;">
+                    ✅ <strong>Accès autorisé :</strong> Bienvenue dans votre portail étudiant sécurisé HEPP.
+                </div>
+
+                <div class="module-list">
+                    <div class="module-item">
+                        <div><h4>Introduction à la comptabilité</h4><p style="margin:0;font-size:13px;color:#666;">Principes comptables et états financiers.</p></div>
+                        <span class="module-badge">ICO102</span>
+                        <button class="btn-sm" onclick="alert('Ouverture du contenu : ICO102');">Accéder au cours</button>
+                    </div>
+                    <div class="module-item">
+                        <div><h4>Administration Scolaire</h4><p style="margin:0;font-size:13px;color:#666;">Rôles des directions et gestion des dossiers.</p></div>
+                        <span class="module-badge">ADS101</span>
+                        <button class="btn-sm" onclick="alert('Ouverture du contenu : ADS101');">Accéder au cours</button>
+                    </div>
+                    <div class="module-item">
+                        <div><h4>Gestion de projet</h4><p style="margin:0;font-size:13px;color:#666;">Cycle de vie, cadre logique et faisabilité.</p></div>
+                        <span class="module-badge">GEP103</span>
+                        <button class="btn-sm" onclick="alert('Ouverture du contenu : GEP103');">Accéder au cours</button>
+                    </div>
+                </div>
+
+                <!-- Remise de Devoirs -->
+                <div style="background:var(--light); padding:20px; border-radius:6px; margin-top:30px;">
+                    <h3 style="color:var(--primary); margin-top:0; font-size:18px; font-weight:600;">📤 Remettre un devoir</h3>
+                    <form onsubmit="event.preventDefault(); alert('Devoir envoyé avec succès au professeur !');" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                        <select required style="padding: 10px; border-radius: 6px; border: 1px solid #ccc; flex: 1; min-width: 200px; font-family:'Poppins', sans-serif;">
+                            <option value="">Sélectionner le module...</option>
+                            <option value="ICO102">ICO102 - Introduction à la comptabilité</option>
+                            <option value="ADS101">ADS101 - Administration Scolaire</option>
+                            <option value="GEP103">GEP103 - Gestion de projet</option>
+                        </select>
+                        <input type="file" required style="padding: 6px; background: white; border: 1px solid #ccc; border-radius: 6px; font-family:'Poppins', sans-serif;">
+                        <button type="submit" class="btn-sm" style="padding: 10px 20px;">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bibliothèque Numérique -->
+        <div class="panel-section" id="bibliotheque">
+            <h2 class="section-title">Bibliothèque Numérique</h2>
+            <div class="grid">
+                <div class="card" style="border-top-color: var(--accent);">
+                    <h3>📚 Ouvrages Pédagogiques</h3>
+                    <p>Accédez aux manuels et notes de lecture en sciences de l'éducation.</p>
+                    <a href="#" class="btn-sm" style="background-color: var(--accent); display:inline-block; margin-top:15px;" onclick="event.preventDefault(); alert('Ouverture de la bibliothèque...');">Consulter</a>
+                </div>
+                <div class="card" style="border-top-color: var(--accent);">
+                    <h3>📑 Documents SAEP & Modèles</h3>
+                    <p>Guides méthodologiques et canevas de projets d'école officiels.</p>
+                    <a href="#" class="btn-sm" style="background-color: var(--accent); display:inline-block; margin-top:15px;" onclick="event.preventDefault(); alert('Téléchargement des guides...');">Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Communauté -->
+        <div class="panel-section" id="communaute">
+            <h2 class="section-title">Espace Communautaire & Échanges</h2>
+            <div class="chat-container" id="chatBox">
+                <div class="chat-message"><strong>Secrétariat Académique :</strong> Bienvenue dans l'espace d'échange de HEPP !</div>
+                <div class="chat-message"><strong>Prof. Jean :</strong> N'oubliez pas de consulter les consignes pour le module GEP103.</div>
+            </div>
+            <form onsubmit="sendChatMessage(event);" style="display: flex; gap: 10px;">
+                <input type="text" id="chatInput" placeholder="Écrivez un message..." required style="flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family:'Poppins', sans-serif;">
+                <button type="submit" class="btn" style="padding: 10px 20px;">Envoyer</button>
+            </form>
+        </div>
+
+        <!-- Panneau du Créateur -->
+        <div class="creator-panel" id="admin-createur">
+            <h3>🛠️ Espace Réservé au Créateur (Administration Directe)</h3>
+            <p style="font-size: 14px; color: #ddd; font-weight: 300;">En tant que créatrice, vous pouvez modifier les annonces importantes ou ajouter des consignes en direct sur la plateforme sans toucher au code source.</p>
+            
+            <div style="margin-top: 20px;">
+                <label style="font-weight: 500; color: var(--secondary);">Publier une annonce urgente sur le site :</label>
+                <textarea id="creatorAnnouncement" rows="3" placeholder="Écrivez une annonce officielle pour les étudiants..." style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 6px; border: none; font-family:'Poppins', sans-serif; box-sizing: border-box;"></textarea>
+                <button type="button" class="btn" style="margin-top: 10px; padding: 10px 20px;" onclick="publishAnnouncement()">Publier sur la plateforme</button>
+            </div>
+            <div id="liveAnnouncement" style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 6px; display: none;"></div>
+        </div>
+
+        <!-- Contact -->
+        <div class="panel-section" id="contact">
+            <h2 class="section-title">Contactez le Secrétariat Académique</h2>
+            <form onsubmit="event.preventDefault(); alert('Message envoyé !');" style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+                <div class="form-group"><label>Nom complet</label><input type="text" required placeholder="Votre nom..."></div>
+                <div class="form-group"><label>Adresse e-mail</label><input type="email" required placeholder="votre.email@example.com"></div>
+                <div class="form-group"><label>Message</label><textarea rows="4" required placeholder="Votre message..."></textarea></div>
+                <button type="submit" class="btn">Envoyer le message</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Pied de page -->
+    <footer>
+        <p>© 2026 HEPP - Hautes Études des Pratiques Pédagogiques. Tous droits réservés. (Haïti & International)</p>
+    </footer>
+
+    <script>
+        // Fonction de vérification du code étudiant
+        function verifyStudentCode() {
+            const codeInput = document.getElementById('studentCodeInput').value.trim();
+            const loginGate = document.getElementById('studentLoginGate');
+            const portalContent = document.getElementById('studentPortalContent');
+            const errorMsg = document.getElementById('loginError');
+
+            // Vous pouvez définir ou tester un format de code valide (commençant par HEPP-)
+            if (codeInput.startsWith('HEPP-') && codeInput.length >= 10) {
+                loginGate.style.display = 'none';
+                portalContent.style.display = 'block';
+                errorMsg.style.display = 'none';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function publishAnnouncement() {
+            const text = document.getElementById('creatorAnnouncement').value;
+            const box = document.getElementById('liveAnnouncement');
+            if(text.trim() !== '') {
+                box.style.display = 'block';
+                box.innerHTML = `<strong>📢 Annonce Officielle de la Direction :</strong> ${text}`;
+                alert('Annonce publiée avec succès sur le site !');
+                document.getElementById('creatorAnnouncement').value = '';
+            }
+        }
+
+        function sendChatMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById('chatInput');
+            const chatBox = document.getElementById('chatBox');
+            if (input.value.trim() !== '') {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'chat-message me';
+                msgDiv.innerHTML = `<strong>Vous :</strong> ${input.value}`;
+                chatBox.appendChild(msgDiv);
+                input.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+    </script>
+
+</body>
+</html>
